@@ -15,6 +15,7 @@ class LatestOrders extends BaseWidget
 
     protected int | string | array $columnSpan = 'full';
 
+    // Table Placement
     protected static ?int $sort = 2;
 
     public function table(Table $table): Table
