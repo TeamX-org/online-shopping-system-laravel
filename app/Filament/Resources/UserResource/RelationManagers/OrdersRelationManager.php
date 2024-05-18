@@ -2,7 +2,6 @@
 
 namespace App\Filament\Resources\UserResource\RelationManagers;
 
-
 use App\Filament\Resources\OrderResource;
 use App\Models\Order;
 use Filament\Forms;
@@ -22,7 +21,7 @@ class OrdersRelationManager extends RelationManager
     {
         return $form
             ->schema([
-              
+                //
             ]);
     }
 
@@ -38,17 +37,16 @@ class OrdersRelationManager extends RelationManager
                 TextColumn::make('grand_total')
                     ->money('LKR'),
 
-                TextColumn::make ('status')
+                TextColumn::make('status')
                     ->badge()
-                    ->color(fn (string $state): string => match ($state){
-                                'new' => 'New',
-                                'processing' => 'Processing',
-                                'shipped' => 'Shipped',
-                                'delivered' => 'Delivered',
-                                'cancelled' => 'Cancelled'
+                    ->color(fn (string $state): string => match ($state) {
+                        'new' => 'info',
+                        'processing' => 'warning',
+                        'shipped' => 'success',
+                        'delivered' => 'success',
+                        'cancelled' => 'danger'
                     })
-
-                    ->icon (fn (string $state): string => match ($state){
+                    ->icon(fn (string $state): string => match ($state) {
                         'new' => 'heroicon-o-sparkles',
                         'processing' => 'heroicon-o-arrow-path',
                         'shipped' => 'heroicon-o-truck',
@@ -60,7 +58,6 @@ class OrdersRelationManager extends RelationManager
                 TextColumn::make('payment_method')
                     ->sortable()
                     ->searchable(),
-                
                 TextColumn::make('payment_status')
                     ->sortable()
                     ->badge()
@@ -69,11 +66,9 @@ class OrdersRelationManager extends RelationManager
                 TextColumn::make('created_at')
                     ->label('Order Date')
                     ->dateTime(),
-
-                
             ])
             ->filters([
-                // 
+                //
             ])
             ->headerActions([
                 // Tables\Actions\CreateAction::make(),
@@ -81,7 +76,7 @@ class OrdersRelationManager extends RelationManager
             ->actions([
                 Tables\Actions\Action::make('View Order')
                     ->url(fn (Order $record): string => OrderResource::getUrl('view', ['record' => $record]))
-                    ->color ('info')
+                    ->color('info')
                     ->icon('heroicon-o-eye'),
                 Tables\Actions\DeleteAction::make(),
             ])

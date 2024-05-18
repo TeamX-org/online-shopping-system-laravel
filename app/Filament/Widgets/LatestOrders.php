@@ -4,8 +4,8 @@ namespace App\Filament\Widgets;
 
 use App\Filament\Resources\OrderResource;
 use Filament\Tables;
+use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
-use Filament\Tables\Column\TextColumn;
 use Filament\Widgets\TableWidget as BaseWidget;
 
 class LatestOrders extends BaseWidget
@@ -25,22 +25,20 @@ class LatestOrders extends BaseWidget
 
                 TextColumn::make('user.name')
                     ->searchable(),
-                
 
                 TextColumn::make('grand_total')
                     ->money('LKR'),
 
-                TextColumn::make ('status')
+                TextColumn::make('status')
                     ->badge()
-                    ->color(fn (string $state): string => match ($state){
-                                'new' => 'New',
-                                'processing' => 'Processing',
-                                'shipped' => 'Shipped',
-                                'delivered' => 'Delivered',
-                                'cancelled' => 'Cancelled'
+                    ->color(fn (string $state): string => match ($state) {
+                        'new' => 'info',
+                        'processing' => 'warning',
+                        'shipped' => 'success',
+                        'delivered' => 'success',
+                        'cancelled' => 'danger'
                     })
-
-                    ->icon (fn (string $state): string => match ($state){
+                    ->icon(fn (string $state): string => match ($state) {
                         'new' => 'heroicon-o-sparkles',
                         'processing' => 'heroicon-o-arrow-path',
                         'shipped' => 'heroicon-o-truck',
@@ -52,7 +50,6 @@ class LatestOrders extends BaseWidget
                 TextColumn::make('payment_method')
                     ->sortable()
                     ->searchable(),
-                
                 TextColumn::make('payment_status')
                     ->sortable()
                     ->badge()
