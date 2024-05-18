@@ -8,6 +8,7 @@ use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables;
+use Filament\Tables\Actions\Action;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
@@ -39,20 +40,20 @@ class OrdersRelationManager extends RelationManager
 
                 TextColumn::make('status')
                     ->badge()
-                    ->color(fn (string $state): string => match ($state) {
+                    ->color(fn (string $state):string => match($state){
                         'new' => 'info',
                         'processing' => 'warning',
                         'shipped' => 'success',
                         'delivered' => 'success',
                         'cancelled' => 'danger'
-                    })
-                    ->icon(fn (string $state): string => match ($state) {
+                    }) 
+                    ->icon(fn (string $state):string => match($state){
                         'new' => 'heroicon-o-sparkles',
                         'processing' => 'heroicon-o-arrow-path',
                         'shipped' => 'heroicon-o-truck',
                         'delivered' => 'heroicon-o-check-circle',
                         'cancelled' => 'heroicon-o-x-circle'
-                    })
+                    }) 
                     ->sortable(),
 
                 TextColumn::make('payment_method')
@@ -66,7 +67,7 @@ class OrdersRelationManager extends RelationManager
 
                 TextColumn::make('created_at')
                     ->label('Order Date')
-                    ->dateTime(),
+                    ->dateTime()
             ])
             ->filters([
                 //
@@ -75,8 +76,8 @@ class OrdersRelationManager extends RelationManager
                 // Tables\Actions\CreateAction::make(),
             ])
             ->actions([
-                Tables\Actions\Action::make('View Order')
-                    ->url(fn (Order $record): string => OrderResource::getUrl('view', ['record' => $record]))
+                Action::make('View Order')
+                    ->url(fn (Order $record):string => OrderResource::getUrl('view', ['record' => $record]))
                     ->color('info')
                     ->icon('heroicon-o-eye'),
                 Tables\Actions\DeleteAction::make(),
