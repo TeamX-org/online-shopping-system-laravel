@@ -3,6 +3,7 @@
 namespace App\Filament\Widgets;
 
 use App\Filament\Resources\OrderResource;
+use App\Models\Order;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
@@ -11,6 +12,8 @@ use Filament\Widgets\TableWidget as BaseWidget;
 class LatestOrders extends BaseWidget
 {
     protected int | string | array $columnSpan = 'full';
+
+    protected static ?int $sort = 2;
 
     public function table(Table $table): Table
     {
@@ -58,6 +61,13 @@ class LatestOrders extends BaseWidget
                 TextColumn::make('created_at')
                     ->label('Order Date')
                     ->dateTime(),
-            ]);
+            ])
+            ->actions([
+                Tables\Actions\Action::make('View Order')
+                    ->url(fn (Order $record): string => OrderResource::getUrl('view', ['record' => $record]))
+                    ->color('info')
+                    ->icon('heroicon-o-eye'),
+            ])
+            ;
     }
 }
