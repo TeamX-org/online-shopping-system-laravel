@@ -59,6 +59,7 @@ class OrdersRelationManager extends RelationManager
                 TextColumn::make('payment_method')
                     ->sortable()
                     ->searchable(),
+
                 TextColumn::make('payment_status')
                     ->sortable()
                     ->badge()

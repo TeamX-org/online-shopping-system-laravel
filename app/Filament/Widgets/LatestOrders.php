@@ -56,6 +56,7 @@ class LatestOrders extends BaseWidget
                 TextColumn::make('payment_method')
                     ->sortable()
                     ->searchable(),
+
                 TextColumn::make('payment_status')
                     ->sortable()
                     ->badge()
