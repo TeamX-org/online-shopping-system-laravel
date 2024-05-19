@@ -105,9 +105,4 @@ class UserResource extends Resource
             'edit' => Pages\EditUser::route('/{record}/edit'),
         ];
     }
-
-    public static function getGloballySearchableAttributes(): array
-{
-    return ['name', 'email'];
-}
 }
