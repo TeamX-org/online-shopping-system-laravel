@@ -58,6 +58,7 @@ class ProductResource extends Resource
                         MarkdownEditor::make('description')
                             ->columnSpanFull()
                             ->fileAttachmentsDirectory('products')
+                            ->required()
                     ])->columns(2),
 
                     Section::make('Images')->schema([
