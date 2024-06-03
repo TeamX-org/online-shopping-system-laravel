@@ -58,6 +58,7 @@ class ProductResource extends Resource
                         MarkdownEditor::make('description')
                             ->columnSpanFull()
                             ->fileAttachmentsDirectory('products')
+                            ->required()
                     ])->columns(2),
 
                     Section::make('Images')->schema([
@@ -66,6 +67,7 @@ class ProductResource extends Resource
                             ->directory('products')
                             ->maxFiles(5)
                             ->reorderable()
+                            ->required()
                     ])
                 ])->columnSpan(2),
 
