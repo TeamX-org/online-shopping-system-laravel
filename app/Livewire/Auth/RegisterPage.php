@@ -35,8 +35,8 @@ class RegisterPage extends Component
     auth()->login($user);
 
     // Redirect to home page
-    return redirect()->intended();
-    
+    return redirect()->intended('/');
+
     }
 
     public function render()
