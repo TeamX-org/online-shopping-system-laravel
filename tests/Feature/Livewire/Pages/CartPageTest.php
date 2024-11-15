@@ -13,6 +13,7 @@ class CartPageTest extends TestCase
     /** @test */
     public function renders_successfully()
     {
+        // Test if the CartPage component renders successfully
         Livewire::test(CartPage::class)
             ->assertStatus(200);
     }
