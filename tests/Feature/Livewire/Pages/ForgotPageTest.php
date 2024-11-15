@@ -13,6 +13,7 @@ class ForgotPasswordPageTest extends TestCase
     /** @test */
     public function renders_successfully()
     {
+        // Test if the ForgotPasswordPage component renders successfully
         Livewire::test(ForgotPasswordPage::class)
             ->assertStatus(200);
     }
