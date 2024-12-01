@@ -1,3 +1,5 @@
+# This file is the entry point for the Artisan console application. It is responsible for bootstrapping the application and handling the incoming command.
+
 #!/usr/bin/env php
 <?php
 

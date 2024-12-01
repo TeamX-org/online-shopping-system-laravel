@@ -1,3 +1,5 @@
+// This is the Vite configuration file. It is used to configure Vite and its plugins.
+
 import { defineConfig } from 'vite';
 import laravel from 'laravel-vite-plugin';
 
