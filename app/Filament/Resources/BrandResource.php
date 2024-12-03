@@ -57,6 +57,8 @@ class BrandResource extends Resource
 
                     FileUpload::make('image')
                         ->image()
+                        ->disk('s3')
+                        ->visibility('public')
                         ->directory('brands'),
 
                     Toggle::make('is_active')

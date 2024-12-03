@@ -171,7 +171,7 @@
       @foreach ($brands as $brand)
         <div class="bg-white rounded-lg shadow-md dark:bg-gray-800">
           <a href="/products?selected_brands[0]={{ $brand->id }}" class="">
-            <img src="{{ url('storage', $brand->image )}}" alt="{{ $brand->name }}" class="object-cover w-full h-64 rounded-t-lg">
+            <img src="{{ Storage::disk('s3')->url($brand->image) }}" alt="{{ $brand->name }}" class="object-cover w-full h-64 rounded-t-lg">
           </a>
           <div class="p-5 text-center">
             <a href="#" class="text-2xl font-bold tracking-tight text-gray-900 dark:text-gray-300">
@@ -218,7 +218,7 @@
           <div class="p-4 md:p-5">
             <div class="flex justify-between items-center">
               <div class="flex items-center">
-                <img class="h-[2.375rem] w-[2.375rem] rounded-full" src="{{ url('storage', $category->image )}}" alt="{{ $category->name }}">
+                <img class="h-[2.375rem] w-[2.375rem] rounded-full" src="{{ Storage::disk('s3')->url($category->image) }}" alt="{{ $category->name }}">
                 <div class="ms-3">
                   <h3 class="group-hover:text-blue-600 font-semibold text-gray-800 dark:group-hover:text-gray-400 dark:text-gray-200">
                     {{ $category->name }}

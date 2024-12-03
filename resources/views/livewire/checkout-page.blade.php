@@ -180,7 +180,7 @@
 							<li class="py-3 sm:py-4" wire:key='{{ $ci['product_id'] }}'>
 								<div class="flex items-center">
 									<div class="flex-shrink-0">
-										<img alt="{{ $ci['name'] }}" class="w-12 h-12 rounded-full" src="{{ url('storage', $ci['image']) }}">
+										<img alt="{{ $ci['name'] }}" class="w-12 h-12 rounded-full" src="{{ Storage::disk('s3')->url($ci['image']) }}">
 										</img>
 									</div>
 									<div class="flex-1 min-w-0 ms-4">

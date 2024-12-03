@@ -157,7 +157,7 @@
               <tr wire:key="{{ $item->id }}">
                 <td class="py-4">
                   <div class="flex items-center">
-                    <img class="h-16 w-16 mr-4" src="{{ url('storage', $item->product->images[0]) }}" alt="{{ $item->product_name }}">
+                    <img class="h-16 w-16 mr-4" src="{{ Storage::disk('s3')->url($item->product->images[0]) }}" alt="{{ $item->product_name }}">
                     <span class="font-semibold">{{ $item->product_name }}</span>
                   </div>
                 </td>
