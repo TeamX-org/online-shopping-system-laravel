@@ -61,8 +61,9 @@ class CategoriesPageTest extends TestCase
     public function categories_display_images_from_storage()
     {
         // Create a category
+        
         $category = Category::factory()->create([
-            'image' => 'categories/test-image.jpg',
+            'image' => 'categories/test-image.jpg',  // Set image path
             'is_active' => true
         ]);
 
