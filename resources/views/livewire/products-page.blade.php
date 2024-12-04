@@ -56,10 +56,10 @@
             <div class="w-16 pb-2 mb-6 border-b border-rose-600 dark:border-gray-400"></div>
             <div>
               <div class="font-semibold">{{ Number::currency($price_range,'LKR') }}</div>
-              <input type="range" wire:model.live='price_range' class="w-full h-1 mb-4 bg-blue-100 rounded appearance-none cursor-pointer" max="10000" value="5000" step="1000">
+              <input type="range" wire:model.live='price_range' class="w-full h-1 mb-4 bg-blue-100 rounded appearance-none cursor-pointer" max="20000" value="20000" step="1000">
               <div class="flex justify-between ">
                 <span class="inline-block text-lg font-bold text-blue-400 ">{{ Number::currency(1000,'LKR') }}</span>
-                <span class="inline-block text-lg font-bold text-blue-400 ">{{ Number::currency(10000,'LKR') }}</span>
+                <span class="inline-block text-lg font-bold text-blue-400 ">{{ Number::currency(20000,'LKR') }}</span>
               </div>
             </div>
           </div>

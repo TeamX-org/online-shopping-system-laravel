@@ -33,7 +33,7 @@ class ProductsPage extends Component
     public $on_sale = [];
 
     #[Url]
-    public $price_range = 5000;
+    public $price_range = 20000;
 
     #[Url]
     public $sort = 'latest';
