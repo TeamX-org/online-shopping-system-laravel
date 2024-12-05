@@ -10,15 +10,14 @@ class CategoryFactory extends Factory
 {
     protected $model = Category::class;
 
-    public function definition()
+    public function definition(): array
     {
-        $name = $this->faker->unique()->word();
-        
+        $name = fake()->unique()->words(2, true);
         return [
             'name' => $name,
             'slug' => Str::slug($name),
-            'image' => $this->faker->imageUrl(), // Or path to a test image
-            'is_active' => true
+            'image' => 'categories/' . Str::random(40) . '.jpg',
+            'is_active' => fake()->boolean(),
         ];
     }
 }
