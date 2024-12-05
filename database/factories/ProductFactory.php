@@ -19,10 +19,14 @@ class ProductFactory extends Factory
         return [
             'name' => $name,
             'slug' => Str::slug($name),
-            'category_id' => Category::factory(), // Create and associate a category
-            'brand_id' => Brand::factory(), // Create and associate a brand
-            'price' => $this->faker->randomNumber(2),
+            'category_id' => Category::factory(),
+            'brand_id' => Brand::factory(),
+            'price' => $this->faker->randomFloat(2, 10, 1000),
             'description' => $this->faker->sentence,
+            'images' => ['test-product.jpg'], // Add default test image
+            'is_active' => true,
+            'is_featured' => false,
+            'on_sale' => false
         ];
     }
 }
