@@ -11,7 +11,7 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use Livewire\Livewire;
 
-class OrdersTest extends TestCase
+class OrderResourceTest extends TestCase
 {
     use RefreshDatabase, WithFaker;
 

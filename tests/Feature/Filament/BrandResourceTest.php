@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
 use Livewire\Livewire;
 
-class BrandsTest extends TestCase
+class BrandResourceTest extends TestCase
 {
     use RefreshDatabase, WithFaker;
 

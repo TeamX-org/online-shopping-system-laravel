@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
 use Livewire\Livewire;
 
-class ProductsTest extends TestCase
+class ProductResourceTest extends TestCase
 {
     use RefreshDatabase, WithFaker;
 

@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Hash;
 use Tests\TestCase;
 use Livewire\Livewire;
 
-class UsersTest extends TestCase
+class UserResourceTest extends TestCase
 {
     use RefreshDatabase, WithFaker;
 
