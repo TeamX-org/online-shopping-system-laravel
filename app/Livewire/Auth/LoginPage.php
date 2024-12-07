@@ -13,6 +13,7 @@ class LoginPage extends Component
     public $email;
     public $password;
 
+    // This function will be called when the form is submitted
     public function save() {
         $this->validate([
             'email' => 'required|email|exists:users|max:255',

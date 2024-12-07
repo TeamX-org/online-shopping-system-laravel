@@ -1,6 +1,6 @@
 <?php
 
-use App\Livewire\Auth\ForgotPage;
+use App\Livewire\Auth\ForgotPasswordPage;
 use App\Livewire\Auth\LoginPage;
 use App\Livewire\Auth\RegisterPage;
 use App\Livewire\Auth\ResetPasswordPage;
@@ -16,19 +16,22 @@ use App\Livewire\ProductsPage;
 use App\Livewire\SuccessPage;
 use Illuminate\Support\Facades\Route;
 
+// Public Routes - Anyone can visit these pages without restrictions
 Route::get('/', HomePage::class);
 Route::get('/categories', CategoriesPage::class);
 Route::get('/products', ProductsPage::class);
 Route::get('/cart', CartPage::class);
 Route::get('/products/{slug}', ProductDetailPage::class);
 
+// Guest-Only Routes - Once a user is logged in, they shouldn't need these pages anymore. If a logged-in user tries to access these routes, they will be redirected to the home page
 Route::middleware('guest')->group(function () {
     Route::get('/login', LoginPage::class)->name('login');
-    Route::get('/forgot', ForgotPage::class);
+    Route::get('/forgot', ForgotPasswordPage::class)->name('password.request');
     Route::get('/register', RegisterPage::class);
-    Route::get('/reset', ResetPasswordPage::class)->name('reset');
+    Route::get('/reset/{token}', ResetPasswordPage::class)->name('password.reset');
 });
 
+// Authenticated Routes
 Route::middleware('auth')->group(function () {
     Route::get('/logout', function () {
         auth()->logout();

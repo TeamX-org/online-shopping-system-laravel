@@ -2,18 +2,18 @@
 
 namespace Tests\Feature\Livewire\Pages;
 
-use App\Livewire\Auth\ForgotPage;
+use App\Livewire\Auth\ForgotPasswordPage;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Livewire\Livewire;
 use Tests\TestCase;
 
-class ForgotPageTest extends TestCase
+class ForgotPasswordPageTest extends TestCase
 {
     /** @test */
     public function renders_successfully()
     {
-        Livewire::test(ForgotPage::class)
+        Livewire::test(ForgotPasswordPage::class)
             ->assertStatus(200);
     }
 }
