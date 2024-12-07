@@ -8,7 +8,7 @@ use App\Models\Order;
 use Livewire\Attributes\Title;
 use Livewire\Component;
 
-#[Title('Order Details - Cosmetics')]
+#[Title('Order Details - Glowies')]
 class MyOrderDetailPage extends Component
 {
 

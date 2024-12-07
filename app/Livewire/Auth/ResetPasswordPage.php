@@ -51,6 +51,7 @@ class ResetPasswordPage extends Component
             event(new PasswordReset($user));
         });
 
+        // Redirect to login page if password reset successfully
         return $status == Password::PASSWORD_RESET?redirect('/login'):session()->flash('error', 'Something went wrong');
     }
 

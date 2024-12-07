@@ -5,8 +5,8 @@
     <!-- Grid -->
     <div class="grid md:grid-cols-2 gap-4 md:gap-8 xl:gap-20 md:items-center">
       <div>
-      <h1 class="block text-3xl font-bold text-gray-800 sm:text-4xl lg:text-6xl lg:leading-tight dark:text-white">Start your journey with <span class="text-rose-950">Cosmetics</span></h1>
-      <p class="mt-3 text-lg text-gray-800 dark:text-gray-400">Purchase wide varities of Cosmetics categories like Makeup, Skin Care and many more.</p>
+      <h1 class="block text-3xl font-bold text-gray-800 sm:text-4xl lg:text-6xl lg:leading-tight dark:text-white">Start your journey with <span class="text-rose-950">Glowies</span></h1>
+      <p class="mt-3 text-lg text-gray-800 dark:text-gray-400">Purchase wide varities of Glowies categories like Makeup, Skin Care and many more.</p>
 
         <!-- Buttons -->
         <div class="mt-7 grid gap-3 w-full sm:inline-flex">
@@ -108,7 +108,7 @@
       <!-- End Col -->
 
       <div class="relative ms-4">
-        <img class="w-full rounded-md" src="https://static.vecteezy.com/system/resources/previews/011/993/278/non_2x/3d-render-online-shopping-bag-using-credit-card-or-cash-for-future-use-credit-card-money-financial-security-on-mobile-3d-application-3d-shop-purchase-basket-retail-store-on-e-commerce-free-png.png" alt="Cosmetics">
+        <img class="w-full rounded-md" src="https://static.vecteezy.com/system/resources/previews/011/993/278/non_2x/3d-render-online-shopping-bag-using-credit-card-or-cash-for-future-use-credit-card-money-financial-security-on-mobile-3d-application-3d-shop-purchase-basket-retail-store-on-e-commerce-free-png.png" alt="Glowies">
         <div class="absolute inset-0 -z-[1] bg-gradient-to-tr from-gray-200 via-white/0 to-white/0 w-full h-full rounded-md mt-4 -mb-4 me-4 -ms-4 lg:mt-6 lg:-mb-6 lg:me-6 lg:-ms-6 dark:from-slate-800 dark:via-slate-900/0 dark:to-slate-900/0"></div>
 
         <!-- SVG-->

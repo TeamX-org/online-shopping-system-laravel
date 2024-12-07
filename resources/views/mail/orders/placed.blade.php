@@ -8,5 +8,5 @@ View Order
 </x-mail::button>
 
 Thanks,<br>
-Cosmetics
+Glowies
 </x-mail::message>

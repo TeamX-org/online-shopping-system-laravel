@@ -29,7 +29,7 @@ class OrderPlaced extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Order Placed - Cosmetics',
+            subject: 'Order Placed - Glowies',
         );
     }
 

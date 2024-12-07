@@ -12,7 +12,7 @@ use Livewire\Component;
 use Stripe\Checkout\Session;
 use Stripe\Stripe;
 
-#[Title('Checkout - Cosmetics')]
+#[Title('Checkout - Glowies')]
 class CheckoutPage extends Component
 {
 

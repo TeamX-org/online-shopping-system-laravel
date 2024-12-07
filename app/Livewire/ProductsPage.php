@@ -13,7 +13,7 @@ use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-#[Title('Products - Cosmetics')]
+#[Title('Products - Glowies')]
 
 class ProductsPage extends Component
 {
@@ -40,10 +40,13 @@ class ProductsPage extends Component
 
     // Add product to cart method
     public function addToCart($product_id) {
+        // Add item to cart
         $total_count = CartManagement::addItemToCart($product_id);
 
+        // Dispatch event to update cart count
         $this->dispatch('update-cart-count', total_count: $total_count)->to(Navbar::class);
 
+        // Alert message
         $this->alert('success', 'Product added to cart successfully!', [
             'position' =>  'bottom-end',
             'timer' =>  3000,
@@ -53,6 +56,7 @@ class ProductsPage extends Component
 
     public function render()
     {   
+        // Query products
         $productQuery = Product::query()->where('is_active', 1);
 
         if(!empty($this->selected_categories)) {
@@ -81,9 +85,11 @@ class ProductsPage extends Component
             $productQuery->orderBy('price');
         } 
 
+        // Get categories and brands
         $categories = Category::where('is_active', 1)->get(['id', 'name', 'slug']);
         $brands = Brand::where('is_active', 1)->get(['id', 'name', 'slug']);
 
+        // Return view
         return view('livewire.products-page', [
             'products' => $productQuery->paginate(9),
             'categories' => $categories,
