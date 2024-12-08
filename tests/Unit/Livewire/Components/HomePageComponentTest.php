@@ -31,8 +31,10 @@ class HomePageComponentTest extends TestCase
         Category::factory()->count(3)->create(['is_active' => true]);
         Category::factory()->count(2)->create(['is_active' => false]);
 
+        // Retrieve only active categories
         $activeCategories = Category::where('is_active', 1)->get();
 
+        // Test if only active categories are retrieved
         $this->assertEquals(3, $activeCategories->count());
         $this->assertDatabaseCount('categories', 5);
     }
@@ -40,6 +42,7 @@ class HomePageComponentTest extends TestCase
     /** @test */
     public function brand_has_required_attributes()
     {
+        // Create a brand
         $brand = Brand::factory()->create([
             'name' => 'Test Brand',
             'slug' => 'test-brand',
@@ -47,6 +50,7 @@ class HomePageComponentTest extends TestCase
             'is_active' => true
         ]);
 
+        // Test if attributes are properly set and formatted
         $this->assertEquals('Test Brand', $brand->name);
         $this->assertEquals('test-brand', $brand->slug);
         $this->assertEquals('brands/test.jpg', $brand->image);
@@ -56,6 +60,7 @@ class HomePageComponentTest extends TestCase
     /** @test */
     public function category_has_required_attributes()
     {
+        // Create a category
         $category = Category::factory()->create([
             'name' => 'Test Category',
             'slug' => 'test-category',
@@ -63,6 +68,7 @@ class HomePageComponentTest extends TestCase
             'is_active' => true
         ]);
 
+        // Test if attributes are properly set and formatted
         $this->assertEquals('Test Category', $category->name);
         $this->assertEquals('test-category', $category->slug);
         $this->assertEquals('categories/test.jpg', $category->image);

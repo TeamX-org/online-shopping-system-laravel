@@ -17,8 +17,10 @@ class CategoriesPageComponentTest extends TestCase
         Category::factory()->count(3)->create(['is_active' => true]);
         Category::factory()->count(2)->create(['is_active' => false]);
 
+        // Retrieve only active categories
         $activeCategories = Category::where('is_active', 1)->get();
 
+        // Test if only active categories are retrieved
         $this->assertEquals(3, $activeCategories->count());
         $this->assertDatabaseCount('categories', 5);
     }
@@ -26,6 +28,7 @@ class CategoriesPageComponentTest extends TestCase
     /** @test */
     public function category_attributes_are_properly_formatted()
     {
+        // Create a category
         $category = Category::factory()->create([
             'name' => 'Test Category',
             'slug' => 'test-category',
@@ -47,8 +50,10 @@ class CategoriesPageComponentTest extends TestCase
         $activeCategory = Category::factory()->create(['is_active' => true]);
         $inactiveCategory = Category::factory()->create(['is_active' => false]);
 
+        // Retrieve displayed categories
         $displayedCategories = Category::where('is_active', 1)->get();
 
+        // Test if only active categories are retrieved
         $this->assertTrue($displayedCategories->contains($activeCategory));
         $this->assertFalse($displayedCategories->contains($inactiveCategory));
     }
