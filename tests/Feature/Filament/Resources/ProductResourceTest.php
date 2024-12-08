@@ -38,6 +38,7 @@ class ProductResourceTest extends TestCase
             ->count(2)
             ->create();
 
+        // Test viewing the product list page
         Livewire::test(ProductResource\Pages\ListProducts::class)
             ->assertSuccessful()
             ->assertCanSeeTableRecords($products);
@@ -46,9 +47,11 @@ class ProductResourceTest extends TestCase
     /** @test */
     public function can_search_products_by_name()
     {
+        // Create products with specific names
         $productToFind = Product::factory()->withExisting()->create(['name' => 'Special Product']);
         $otherProduct = Product::factory()->withExisting()->create(['name' => 'Other Product']);
 
+        // Test searching products by name
         Livewire::test(ProductResource\Pages\ListProducts::class)
             ->searchTable('Special')
             ->assertCanSeeTableRecords([$productToFind])
@@ -58,6 +61,7 @@ class ProductResourceTest extends TestCase
     /** @test */
     public function can_search_products_by_category()
     {
+        // Create a category and assign products to it
         $category = Category::factory()->create(['name' => 'Electronics']);
         $productInCategory = Product::factory()->create([
             'category_id' => $category->id,
@@ -65,6 +69,7 @@ class ProductResourceTest extends TestCase
         ]);
         $otherProduct = Product::factory()->withExisting()->create();
 
+        // Test searching products by category
         Livewire::test(ProductResource\Pages\ListProducts::class)
             ->searchTable('Electronics')
             ->assertCanSeeTableRecords([$productInCategory])
@@ -74,6 +79,7 @@ class ProductResourceTest extends TestCase
     /** @test */
     public function can_search_products_by_brand()
     {
+        // Create a brand and assign products to it
         $brand = Brand::factory()->create(['name' => 'Apple']);
         $productWithBrand = Product::factory()->create([
             'brand_id' => $brand->id,
@@ -81,6 +87,7 @@ class ProductResourceTest extends TestCase
         ]);
         $otherProduct = Product::factory()->withExisting()->create();
 
+        // Test searching products by brand
         Livewire::test(ProductResource\Pages\ListProducts::class)
             ->searchTable('Apple')
             ->assertCanSeeTableRecords([$productWithBrand])
@@ -90,6 +97,7 @@ class ProductResourceTest extends TestCase
     /** @test */
     public function can_filter_products_by_category()
     {
+        // Create a category and assign products to it
         $category = Category::factory()->create();
         $productInCategory = Product::factory()->create([
             'category_id' => $category->id,
@@ -97,6 +105,7 @@ class ProductResourceTest extends TestCase
         ]);
         $otherProduct = Product::factory()->withExisting()->create();
 
+        // Test filtering products by category
         Livewire::test(ProductResource\Pages\ListProducts::class)
             ->filterTable('category', $category->id)
             ->assertCanSeeTableRecords([$productInCategory])
@@ -106,6 +115,7 @@ class ProductResourceTest extends TestCase
     /** @test */
     public function can_filter_products_by_brand()
     {
+        // Create a brand and assign products to it
         $brand = Brand::factory()->create();
         $productWithBrand = Product::factory()->create([
             'brand_id' => $brand->id,
@@ -113,6 +123,7 @@ class ProductResourceTest extends TestCase
         ]);
         $otherProduct = Product::factory()->withExisting()->create();
 
+        // Test filtering products by brand
         Livewire::test(ProductResource\Pages\ListProducts::class)
             ->filterTable('brand', $brand->id)
             ->assertCanSeeTableRecords([$productWithBrand])
@@ -122,9 +133,11 @@ class ProductResourceTest extends TestCase
     /** @test */
     public function can_create_product()
     {
+        // Create category and brand for the new product
         $category = Category::factory()->create();
         $brand = Brand::factory()->create();
 
+        // Define new product data
         $newProduct = [
             'name' => 'Test Product',
             'description' => 'Test Description',
@@ -138,11 +151,13 @@ class ProductResourceTest extends TestCase
             'on_sale' => false,
         ];
 
+        // Test creating a new product
         Livewire::test(ProductResource\Pages\CreateProduct::class)
             ->fillForm($newProduct)
             ->call('create')
             ->assertHasNoFormErrors();
 
+        // Assert the product is in the database
         $this->assertDatabaseHas('products', [
             'name' => $newProduct['name'],
             'slug' => 'test-product',
@@ -159,6 +174,7 @@ class ProductResourceTest extends TestCase
     /** @test */
     public function validates_required_fields_when_creating()
     {
+        // Test validation for required fields when creating a product
         Livewire::test(ProductResource\Pages\CreateProduct::class)
             ->fillForm([
                 'name' => '',
@@ -181,9 +197,11 @@ class ProductResourceTest extends TestCase
     /** @test */
     public function validates_price_minimum_value()
     {
+        // Create category and brand for the new product
         $category = Category::factory()->create();
         $brand = Brand::factory()->create();
 
+        // Test validation for minimum price value
         Livewire::test(ProductResource\Pages\CreateProduct::class)
             ->fillForm([
                 'name' => 'Test Product',
@@ -200,10 +218,12 @@ class ProductResourceTest extends TestCase
     /** @test */
     public function can_edit_product()
     {
+        // Create a product and new category and brand for updating
         $product = Product::factory()->withExisting()->create();
         $newCategory = Category::factory()->create();
         $newBrand = Brand::factory()->create();
 
+        // Define new data for the product
         $newData = [
             'name' => 'Updated Product Name',
             'description' => 'Updated Description',
@@ -217,6 +237,7 @@ class ProductResourceTest extends TestCase
             'on_sale' => true,
         ];
 
+        // Test editing the product
         Livewire::test(ProductResource\Pages\EditProduct::class, [
             'record' => $product->id,
         ])
@@ -224,6 +245,7 @@ class ProductResourceTest extends TestCase
             ->call('save')
             ->assertHasNoFormErrors();
 
+        // Assert the product is updated in the database
         $this->assertDatabaseHas('products', [
             'id' => $product->id,
             'name' => $newData['name'],
@@ -240,12 +262,15 @@ class ProductResourceTest extends TestCase
     /** @test */
     public function can_delete_product()
     {
+        // Create a product to delete
         $product = Product::factory()->withExisting()->create();
 
+        // Test deleting the product
         Livewire::test(ProductResource\Pages\ListProducts::class)
             ->assertSuccessful()
             ->callTableAction('delete', $product);
 
+        // Assert the product is deleted from the database
         $this->assertDatabaseMissing('products', [
             'id' => $product->id,
         ]);
@@ -254,6 +279,7 @@ class ProductResourceTest extends TestCase
     /** @test */
     public function can_bulk_delete_products()
     {
+        // Create multiple products to delete
         $products = Product::factory()
             ->withExisting()
             ->count(2)
@@ -261,10 +287,12 @@ class ProductResourceTest extends TestCase
 
         $productIds = $products->pluck('id')->toArray();
 
+        // Test bulk deleting the products
         Livewire::test(ProductResource\Pages\ListProducts::class)
             ->assertSuccessful()
             ->callTableBulkAction('delete', $products);
 
+        // Assert the products are deleted from the database
         foreach ($productIds as $id) {
             $this->assertDatabaseMissing('products', ['id' => $id]);
         }
@@ -273,6 +301,7 @@ class ProductResourceTest extends TestCase
     /** @test */
     public function can_sort_products_by_price()
     {
+        // Create multiple products to sort
         $products = Product::factory()
             ->withExisting()
             ->count(2)
@@ -283,7 +312,7 @@ class ProductResourceTest extends TestCase
         // Test initial load
         $component->assertSuccessful();
         
-        // Test sorting
+        // Test sorting products by price
         $component->sortTable('price')
             ->assertSuccessful()
             ->assertCanSeeTableRecords($products);
