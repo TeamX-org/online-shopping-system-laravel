@@ -27,12 +27,14 @@ class OrderResourceTest extends TestCase
     /** @test */
     public function can_view_order_list()
     {
+        // Create orders with specific attributes
         $orders = Order::factory()->count(2)->create([
             'payment_method' => 'stripe',
             'shipping_method' => 'fedex',
             'status' => 'new'
         ]);
 
+        // Test viewing the order list page
         Livewire::test(OrderResource\Pages\ListOrders::class)
             ->assertSuccessful()
             ->assertCanSeeTableRecords($orders);
@@ -41,6 +43,7 @@ class OrderResourceTest extends TestCase
     /** @test */
     public function can_search_orders_by_customer_name()
     {
+        // Create a customer and orders
         $customer = User::factory()->create(['name' => 'John Doe']);
         $orderToFind = Order::factory()->create([
             'user_id' => $customer->id,
@@ -54,6 +57,7 @@ class OrderResourceTest extends TestCase
             'status' => 'new'
         ]);
 
+        // Test searching orders by customer name
         Livewire::test(OrderResource\Pages\ListOrders::class)
             ->searchTable('John')
             ->assertCanSeeTableRecords([$orderToFind])
@@ -63,6 +67,7 @@ class OrderResourceTest extends TestCase
     /** @test */
     public function can_filter_orders_by_payment_status()
     {
+        // Create orders with different payment statuses
         $paidOrder = Order::factory()->create([
             'payment_method' => 'stripe',
             'payment_status' => 'paid',
@@ -76,6 +81,7 @@ class OrderResourceTest extends TestCase
             'status' => 'new'
         ]);
 
+        // Test filtering orders by payment status
         Livewire::test(OrderResource\Pages\ListOrders::class)
             ->searchTable('paid')
             ->assertCanSeeTableRecords([$paidOrder])
@@ -85,6 +91,7 @@ class OrderResourceTest extends TestCase
     /** @test */
     public function can_create_order_with_items()
     {
+        // Create a customer and product
         $customer = User::factory()->create();
         $product = Product::factory()->create(['price' => 100]);
 
@@ -134,6 +141,7 @@ class OrderResourceTest extends TestCase
     /** @test */
     public function validates_required_fields_when_creating()
     {
+        // Test validation for required fields when creating an order
         Livewire::test(OrderResource\Pages\CreateOrder::class)
             ->fillForm([
                 'user_id' => null,
@@ -153,6 +161,7 @@ class OrderResourceTest extends TestCase
     /** @test */
     public function can_edit_order()
     {
+        // Create an order and a new customer for updating
         $order = Order::factory()->create([
             'payment_method' => 'stripe',
             'status' => 'new',
@@ -160,6 +169,7 @@ class OrderResourceTest extends TestCase
         ]);
         $newCustomer = User::factory()->create();
 
+        // Define new data for the order
         $newData = [
             'user_id' => $newCustomer->id,
             'payment_method' => 'cod',
@@ -170,6 +180,7 @@ class OrderResourceTest extends TestCase
             'notes' => 'Updated notes',
         ];
 
+        // Test editing the order
         Livewire::test(OrderResource\Pages\EditOrder::class, [
             'record' => $order->id,
         ])
@@ -177,6 +188,7 @@ class OrderResourceTest extends TestCase
             ->call('save')
             ->assertHasNoFormErrors();
 
+        // Assert the order is updated in the database
         $this->assertDatabaseHas('orders', [
             'id' => $order->id,
             'user_id' => $newCustomer->id,
@@ -192,16 +204,19 @@ class OrderResourceTest extends TestCase
     /** @test */
     public function can_delete_order()
     {
+        // Create an order to delete
         $order = Order::factory()->create([
             'payment_method' => 'stripe',
             'shipping_method' => 'fedex',
             'status' => 'new'
         ]);
 
+        // Test deleting the order
         Livewire::test(OrderResource\Pages\ListOrders::class)
             ->assertSuccessful()
             ->callTableAction('delete', $order);
 
+        // Assert the order is deleted from the database
         $this->assertDatabaseMissing('orders', [
             'id' => $order->id,
         ]);
@@ -210,6 +225,7 @@ class OrderResourceTest extends TestCase
     /** @test */
     public function can_bulk_delete_orders()
     {
+        // Create multiple orders to delete
         $orders = Order::factory()
             ->count(2)
             ->create([
@@ -220,10 +236,12 @@ class OrderResourceTest extends TestCase
         
         $orderIds = $orders->pluck('id')->toArray();
 
+        // Test bulk deleting the orders
         Livewire::test(OrderResource\Pages\ListOrders::class)
             ->assertSuccessful()
             ->callTableBulkAction('delete', $orders);
 
+        // Assert the orders are deleted from the database
         foreach ($orderIds as $id) {
             $this->assertDatabaseMissing('orders', ['id' => $id]);
         }
@@ -232,12 +250,14 @@ class OrderResourceTest extends TestCase
     /** @test */
     public function can_view_order()
     {
+        // Create an order to view
         $order = Order::factory()->create([
             'payment_method' => 'stripe',
             'shipping_method' => 'fedex',
             'status' => 'new'
         ]);
 
+        // Test viewing the order
         Livewire::test(OrderResource\Pages\ViewOrder::class, [
             'record' => $order->id,
         ])->assertSuccessful();
@@ -246,12 +266,14 @@ class OrderResourceTest extends TestCase
     /** @test */
     public function can_update_order_status()
     {
+        // Create an order to update
         $order = Order::factory()->create([
             'payment_method' => 'stripe',
             'shipping_method' => 'fedex',
             'status' => 'new'
         ]);
 
+        // Test updating the order status
         Livewire::test(OrderResource\Pages\EditOrder::class, [
             'record' => $order->id,
         ])
@@ -261,6 +283,7 @@ class OrderResourceTest extends TestCase
             ->call('save')
             ->assertHasNoFormErrors();
 
+        // Assert the order status is updated in the database
         $this->assertDatabaseHas('orders', [
             'id' => $order->id,
             'status' => 'processing',
