@@ -43,6 +43,7 @@ class ResetPasswordPage extends Component
             'token' => $this->token
         ], function (User $user, string $password) {
             $password = $this->password;
+            // Update user password
             $user->forceFill([
                 'password' => Hash::make($password)
             ])->setRememberToken(Str::random(60));
